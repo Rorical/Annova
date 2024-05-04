@@ -13,17 +13,11 @@ declare module 'vue' {
     AForm: typeof import('@any-design/anyui')['Form']
     AFormItem: typeof import('@any-design/anyui')['FormItem']
     AInput: typeof import('@any-design/anyui')['Input']
-    AListView: typeof import('@any-design/anyui')['ListView']
-    AListViewItem: typeof import('@any-design/anyui')['ListViewItem']
-    APopper: typeof import('@any-design/anyui')['Popper']
     ASpinner: typeof import('@any-design/anyui')['Spinner']
     ATextarea: typeof import('@any-design/anyui')['Textarea']
     Chat: typeof import('./src/components/Chat.vue')['default']
-    ChatWindow: typeof import('./src/views/Interactive.vue')['default']
-    FullScreenEditor: typeof import('./src/components/FullScreenEditor.vue')['default']
     InteractiveSettings: typeof import('./src/components/InteractiveSettings.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Settings: typeof import('./src/components/Settings.vue')['default']
   }
 }

@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 import { ref, watch, defineModel } from 'vue'
-import { useSettingsStore } from "@/stores/settings";
+import { useSettingsStore } from '@/stores/settings'
 
 const settings = useSettingsStore()
 
@@ -16,7 +16,7 @@ const emit = defineEmits<{
   (event: 'modify', index: number): void
 }>()
 
-const messages = defineModel<ChatMessage[]>("messages")
+const messages = defineModel<ChatMessage[]>('messages')
 
 const props = defineProps<{
   selections: ChatMessage[]
@@ -66,7 +66,12 @@ watch(editorVisible, () => {
 
 <template>
   <div ref="wrapper" class="wrapper">
-    <div v-for="(msg, i) in messages" :key="i" class="message-container" @click.right="$emit('modify', i)">
+    <div
+      v-for="(msg, i) in messages"
+      :key="i"
+      class="message-container"
+      @click.right="$emit('modify', i)"
+    >
       <div
         class="message"
         :class="{
@@ -85,9 +90,13 @@ watch(editorVisible, () => {
       @click="submit(i)"
       @contextmenu.prevent="decide(i)"
     >
-      <div class="message actor selection" :class="{'decided': decision[i]}" v-html="content(msg)"></div>
+      <div
+        class="message actor selection"
+        :class="{ decided: decision[i] }"
+        v-html="content(msg)"
+      ></div>
     </div>
-    <a-spinner class="spinner" v-show="loading"/>
+    <a-spinner class="spinner" v-show="loading" />
   </div>
   <a-float v-model:visible="editorVisible" round centered>
     <a-textarea v-model="editorText" placeholder="Type Something..." />

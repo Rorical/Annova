@@ -1,46 +1,42 @@
 <script setup lang="ts">
-import {defineProps, ref} from 'vue'
-import type {PersonaInfo} from "@/schema/define";
-import {type Form, message} from "@any-design/anyui";
+import { defineProps, ref } from 'vue'
+import type { PersonaInfo } from '@/schema/define'
+import { type Form, message } from '@any-design/anyui'
 
 const form = ref<InstanceType<typeof Form> | undefined>(undefined)
 const data = ref<PersonaInfo>({
-  name: "",
-  description: ""
+  name: '',
+  description: ''
 })
 const rules = {
-  name: [
-    { required: true, message: "请输入名字" }
-  ],
-  description: [
-    { required: true, message: "请输入描述" }
-  ]
+  name: [{ required: true, message: '请输入名字' }],
+  description: [{ required: true, message: '请输入描述' }]
 }
 
 const submit = async () => {
-  if (!await form?.value?.validate()) {
+  if (!(await form?.value?.validate())) {
     message({
-      type: "error",
-      content: "请检查输入"
+      type: 'error',
+      content: '请检查输入'
     })
     return
   }
-  await fetch("/api/prompt", {
-    method: "POST",
+  await fetch('/api/prompt', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       persona: data.value
     })
   })
   message({
-    type: "success",
-    content: "提交成功"
+    type: 'success',
+    content: '提交成功'
   })
   data.value = {
-    name: "",
-    description: ""
+    name: '',
+    description: ''
   }
 }
 </script>
@@ -53,10 +49,13 @@ const submit = async () => {
       </a-form-item>
       <a-form-item prop="text">
         <a-textarea
-        :maxRows="21"
-        :minRows="21"
-        autoMatchHeight
-        borderless v-model="data.description" placeholder="描述：请尽可能详细"></a-textarea>
+          :maxRows="21"
+          :minRows="21"
+          autoMatchHeight
+          borderless
+          v-model="data.description"
+          placeholder="描述：请尽可能详细"
+        ></a-textarea>
       </a-form-item>
       <a-form-item>
         <a-button type="primary" @click="submit">提交</a-button>

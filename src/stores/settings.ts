@@ -9,7 +9,7 @@ export const useSettingsStore = defineStore('setting', {
     top_p: 1,
     top_k: 50,
     num_return_sequences: 4,
-    token: ""
+    token: ''
   }),
   getters: {
     maxTokens(state) {

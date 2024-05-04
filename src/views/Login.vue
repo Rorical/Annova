@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import {useSettingsStore} from "@/stores/settings";
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import CONFIG from "@/CONFIG.json";
+import { useSettingsStore } from '@/stores/settings'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import CONFIG from '@/CONFIG.json'
 import { message } from '@any-design/anyui'
 
 const settings = useSettingsStore()
 const router = useRouter()
 
-const token = ref("")
+const token = ref('')
 const loading = ref(false)
 
 const login = async () => {
@@ -19,11 +19,11 @@ const login = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
+      Authorization: 'Bearer ' + settings.authToken
     }
   })
   if (response.status === 200) {
-    await router.push({name: 'Main'})
+    await router.push({ name: 'Main' })
   } else {
     message({
       type: 'error',
@@ -41,7 +41,12 @@ const login = async () => {
       <p class="sub">请先登录</p>
     </div>
     <div class="form">
-      <a-input v-model="token" placeholder="请输入您的授权码" @keydown.enter="login" :disabled="loading">
+      <a-input
+        v-model="token"
+        placeholder="请输入您的授权码"
+        @keydown.enter="login"
+        :disabled="loading"
+      >
         <template #post-button>
           <a-button type="gradient" @click="login" :loading="loading">登录</a-button>
         </template>

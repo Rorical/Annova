@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import Chat from "@/components/Chat.vue";
-import {Crosshair, SwitchHorizontal} from "@vicons/tabler";
-import {Icon} from "@vicons/utils";
-import {useSettingsStore} from '@/stores/settings'
-import {nextTick, onMounted, ref} from "vue";
+import Chat from '@/components/Chat.vue'
+import { Crosshair, SwitchHorizontal } from '@vicons/tabler'
+import { Icon } from '@vicons/utils'
+import { useSettingsStore } from '@/stores/settings'
+import { nextTick, onMounted, ref } from 'vue'
 import { message as messageBox } from '@any-design/anyui'
-import {type ChatMessage, type GenerationRequest, MessageFrom, type PersonaInfo} from '@/schema/define'
-import CONFIG from "@/CONFIG.json";
+import {
+  type ChatMessage,
+  type GenerationRequest,
+  MessageFrom,
+  type PersonaInfo
+} from '@/schema/define'
+import CONFIG from '@/CONFIG.json'
 
 const settings = useSettingsStore()
 const session = ref<PersonaInfo | null>(null)
@@ -34,8 +39,9 @@ const init = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
-    }})
+      Authorization: 'Bearer ' + settings.authToken
+    }
+  })
   session.value = await response.json()
   const requestData: GenerationRequest = {
     persona: session.value!,
@@ -45,7 +51,7 @@ const init = async () => {
       temperature: 0.5,
       top_p: 1,
       top_k: 40,
-      num_return_sequences: 1,
+      num_return_sequences: 1
     }
   }
 
@@ -71,8 +77,8 @@ const send = () => {
 const submit = async () => {
   if (messages.value.length === 0) {
     messageBox({
-      type: "error",
-      content: "请先输入内容"
+      type: 'error',
+      content: '请先输入内容'
     })
     return
   }
@@ -80,17 +86,17 @@ const submit = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
+      Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify({
       persona: session.value!,
-      history: messages.value,
+      history: messages.value
     })
   })
   messages.value = []
   messageBox({
-    type: "success",
-    content: "提交成功"
+    type: 'success',
+    content: '提交成功'
   })
   keepBottom()
 }
@@ -113,31 +119,28 @@ onMounted(async () => {
           </div>
         </div>
         <div class="prompt-footer">
-          <a-button type="" size="small" round @click="init"
-          >Restart</a-button>
+          <a-button type="" size="small" round @click="init">Restart</a-button>
           <a-button type="normal" size="small" round @click="isMeFirst = !isMeFirst">
             <Icon><SwitchHorizontal /></Icon> {{ isMeFirst ? '我' : 'AI' }}先
           </a-button>
-          <a-button type="gradient" size="small" round @click="submit"> <Icon><Crosshair /></Icon> 提交 </a-button>
+          <a-button type="gradient" size="small" round @click="submit">
+            <Icon><Crosshair /></Icon> 提交
+          </a-button>
         </div>
       </div>
       <div class="chat-main">
         <div class="chat-box">
-          <Chat
-              ref="chatBox"
-              v-model:messages="messages"
-          ></Chat>
+          <Chat ref="chatBox"
+          v-model:messages="messages"
+          :loading="false"
+          :selections="[]"></Chat>
         </div>
         <div class="chat-input">
           <a-input v-model="message" placeholder="Type Something..." round @keyup.enter="send">
             <template #post-button>
-              <a-button
-                  type="gradient"
-                  size="small"
-                  round
-                  :disabled="message == ''"
-                  @click="send"
-              ><Icon><Send /></Icon> Send</a-button>
+              <a-button type="gradient" size="small" round :disabled="message == ''" @click="send"
+                ><Icon><Send /></Icon> Send</a-button
+              >
             </template>
           </a-input>
         </div>

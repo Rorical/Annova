@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import {nextTick, onMounted, ref} from 'vue'
-import {type ChatMessage, type GenerationRequest, MessageFrom, type PersonaInfo} from '@/schema/define'
-import {Dots, Send} from '@vicons/tabler'
-import {Icon} from '@vicons/utils'
+import { nextTick, onMounted, ref } from 'vue'
+import {
+  type ChatMessage,
+  type GenerationRequest,
+  MessageFrom,
+  type PersonaInfo
+} from '@/schema/define'
+import { Dots, Send } from '@vicons/tabler'
+import { Icon } from '@vicons/utils'
 import Chat from '../components/Chat.vue'
 import Settings from '@/components/InteractiveSettings.vue'
 import CONFIG from '@/CONFIG.json'
-import {useSettingsStore} from '@/stores/settings'
+import { useSettingsStore } from '@/stores/settings'
 
 const settings = useSettingsStore()
 const emit = defineEmits<{
@@ -29,8 +34,9 @@ const init = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
-  }})
+      Authorization: 'Bearer ' + settings.authToken
+    }
+  })
   session.value = await response.json()
   const requestData: GenerationRequest = {
     persona: session.value!,
@@ -40,14 +46,14 @@ const init = async () => {
       temperature: 0.5,
       top_p: 1,
       top_k: 40,
-      num_return_sequences: 1,
+      num_return_sequences: 1
     }
   }
   const response2 = await fetch(CONFIG.API + '/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
+      Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify(requestData)
   })
@@ -103,7 +109,7 @@ const send = async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
+      Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify(requestData)
   })
@@ -123,7 +129,7 @@ const send = async () => {
 const choose = async (id: number, decision: boolean[]) => {
   let decided = decision
   // if decided is all false, then we need to use id to decide
-  if (decided.every(item => !item)) {
+  if (decided.every((item) => !item)) {
     decided[id] = true
   }
   // accept when decided is true
@@ -141,7 +147,7 @@ const choose = async (id: number, decision: boolean[]) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: "Bearer " + settings.authToken
+      Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify({
       persona: session.value!,
@@ -173,8 +179,7 @@ const choose = async (id: number, decision: boolean[]) => {
           <a-button type="gradient" size="small" round @click="settingVisible = !settingVisible"
             ><Icon><Dots /></Icon> Options</a-button
           >
-          <a-button type="" size="small" round @click="init"
-            >Restart</a-button>
+          <a-button type="" size="small" round @click="init">Restart</a-button>
         </div>
       </div>
       <div class="chat-main">

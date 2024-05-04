@@ -1,0 +1,31 @@
+@import '@any-design/anyui/styles/index.scss';
+
+body {
+  font-size: medium;
+}
+
+.xicon {
+  color: inherit;
+}
+
+::selection {
+  background: var(--secondary-30);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: var(--bg-light);
+  border-radius: 5px;
+}

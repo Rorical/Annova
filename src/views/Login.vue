@@ -15,22 +15,30 @@ const login = async () => {
   loading.value = true
   settings.setToken(token.value)
   console.log(settings.authToken)
-  const response = await fetch(CONFIG.API + '/ping', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + settings.authToken
+  try {
+    const response = await fetch(CONFIG.API + '/ping', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + settings.authToken
+      }
+    })
+    if (response.ok) {
+      await router.push({ name: 'Main' })
+    } else {
+      message({
+        type: 'error',
+        content: '登录失败，请检查授权码是否正确'
+      })
     }
-  })
-  if (response.status === 200) {
-    await router.push({ name: 'Main' })
-  } else {
+  } catch {
     message({
       type: 'error',
       content: '登录失败，请检查授权码是否正确'
     })
+  } finally {
+    loading.value = false
   }
-  loading.value = false
 }
 </script>
 

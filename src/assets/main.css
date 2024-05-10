@@ -1,5 +1,9 @@
 @import '@any-design/anyui/styles/index.scss';
 
+.gradient-danger {
+  background: linear-gradient(42deg, var(--danger-75), var(--danger)) !important;
+}
+
 body {
   font-size: medium;
 }

@@ -8,7 +8,7 @@ const router = useRouter()
   <div class="container">
     <div class="info">
       <div class="title">无限进化协议</div>
-      <p class="sub">初始化成功... 等待指令</p>
+      <p class="sub" @contextmenu.prevent="router.push({ name: 'Admin' })">初始化成功... 等待指令</p>
     </div>
     <div class="jump-container">
       <a-card title="交互式进化系统" :width="280" @click="router.push({ name: 'Interactive' })">

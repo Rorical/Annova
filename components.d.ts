@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('@any-design/anyui')['Button']
     ACard: typeof import('@any-design/anyui')['Card']
+    AChat: typeof import('@any-design/anyui')['Chat']
     AFloat: typeof import('@any-design/anyui')['Float']
     AForm: typeof import('@any-design/anyui')['Form']
     AFormItem: typeof import('@any-design/anyui')['FormItem']

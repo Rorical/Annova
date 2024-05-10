@@ -43,18 +43,6 @@ const init = async () => {
     }
   })
   session.value = await response.json()
-  const requestData: GenerationRequest = {
-    persona: session.value!,
-    history: [],
-    cfg: {
-      max_tokens: 100,
-      temperature: 0.5,
-      top_p: 1,
-      top_k: 40,
-      num_return_sequences: 1
-    }
-  }
-
   messages.value = []
 
   keepBottom(false)
@@ -89,7 +77,7 @@ const submit = async () => {
       Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify({
-      persona: session.value!,
+      persona: session.value!.id!,
       history: messages.value
     })
   })

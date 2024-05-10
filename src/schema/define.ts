@@ -1,4 +1,5 @@
 export interface PersonaInfo {
+  id?: string
   name: string
   description: string
 }
@@ -20,7 +21,25 @@ export interface GenerationConfig {
 }
 
 export interface GenerationRequest {
-  persona: PersonaInfo
+  persona: string
   history: ChatMessage[]
   cfg: GenerationConfig
+}
+
+export enum AdminMode {
+  Prompt,
+  SFT,
+}
+
+export interface PromptReview {
+  id: number
+  name: string
+  description: string
+}
+
+export interface SFTReview {
+  id: number
+  persona: PersonaInfo
+  from: string
+  history: ChatMessage[]
 }

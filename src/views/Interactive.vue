@@ -39,13 +39,13 @@ const init = async () => {
   })
   session.value = await response.json()
   const requestData: GenerationRequest = {
-    persona: session.value!,
+    persona: session.value!.id!,
     history: [],
     cfg: {
-      max_tokens: 100,
-      temperature: 0.5,
-      top_p: 1,
-      top_k: 40,
+      max_tokens: settings.maxTokens,
+      temperature: settings.temperature,
+      top_p: settings.topP,
+      top_k: settings.topK,
       num_return_sequences: 1
     }
   }
@@ -101,7 +101,7 @@ const send = async () => {
   thinking.value = true
   keepBottom()
   const requestData: GenerationRequest = {
-    persona: session.value!,
+    persona: session.value!.id!,
     history: messages.value!,
     cfg: settings.all
   }
@@ -150,7 +150,7 @@ const choose = async (id: number, decision: boolean[]) => {
       Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify({
-      persona: session.value!,
+      persona: session.value!.id,
       history: messages.value!,
       accepted: accepted,
       rejected: rejected

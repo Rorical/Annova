@@ -2,6 +2,10 @@
 import { defineProps, ref } from 'vue'
 import type { PersonaInfo } from '@/schema/define'
 import { type Form, message } from '@any-design/anyui'
+import CONFIG from '@/CONFIG.json'
+import {useSettingsStore} from "@/stores/settings";
+
+const settings = useSettingsStore()
 
 const form = ref<InstanceType<typeof Form> | undefined>(undefined)
 const data = ref<PersonaInfo>({
@@ -21,10 +25,11 @@ const submit = async () => {
     })
     return
   }
-  await fetch('/api/prompt', {
+  await fetch(CONFIG.API + '/api/prompt', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + settings.authToken
     },
     body: JSON.stringify({
       persona: data.value

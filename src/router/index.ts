@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import('../views/Prompt.vue')
     },
     {
+      path: '/admin',
+      name: 'Admin',
+      component: () => import('../views/Admin.vue')
+    },
+    {
       path: '/*',
       redirect: '/'
     }

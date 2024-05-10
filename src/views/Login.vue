@@ -45,7 +45,7 @@ const login = async () => {
 <template>
   <div class="container">
     <div class="info">
-      <div class="title">RLHF 数据打标工具</div>
+      <div class="title">Annova</div>
       <p class="sub">请先登录</p>
     </div>
     <div class="form">

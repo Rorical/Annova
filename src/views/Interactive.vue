@@ -49,6 +49,7 @@ const init = async () => {
       num_return_sequences: 1
     }
   }
+  /*
   const response2 = await fetch(CONFIG.API + '/api/generate', {
     method: 'POST',
     headers: {
@@ -63,7 +64,8 @@ const init = async () => {
       from: MessageFrom.Character,
       content: data[0]
     }
-  ]
+  ]*/
+  messages.value = []
 
   keepBottom(false)
   thinking.value = false
